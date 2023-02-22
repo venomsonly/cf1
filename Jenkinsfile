@@ -24,7 +24,10 @@ pipeline {
         } 
         stage("three"){ 
             steps{ 
-                echo 'step 3' 
+                sh """
+                echo "Step 3 of main"
+                docker ps
+                """ 
             } 
         } 
     }        
