@@ -47,7 +47,7 @@ pipeline {
             steps{ 
                 sh """
                 echo "Step 3 of main"
-                docker build -t hub.docker.com/$dockerhub_USR/$host_name:latest .
+                docker build -t $dockerhub_USR/$host_name:latest .
                 echo "$dockerhub_PSW | docker login -u $dockerhub_USR --password-stdin"
                 docker ps
                 """ 
@@ -58,7 +58,7 @@ pipeline {
 
         always{      
             sh """
-            docker push hub.docker.com/$dockerhub_USR/$host_name:latest
+            docker push $dockerhub_USR/$host_name:latest
             """
             echo 'This pipeline is completed.' 
         } 
