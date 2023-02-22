@@ -10,8 +10,9 @@ pipeline {
     stages{ 
         stage("1. Clean, install node packages and build the code"){ 
             steps{
-                echo "$dockerhub_PSW | docker login -u $dockerhub_USR --password-stdin"
+                
                 sh """
+                echo "$dockerhub_PSW | docker login -u $dockerhub_USR --password-stdin"
                 echo "cleaning previous builds."
                 rm -rf .DS_Store .git node_modules .next build
                 echo "cleaned."
