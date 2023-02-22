@@ -20,7 +20,7 @@ pipeline {
                 """ 
             } 
         } 
-        stage("2. Read file"){ 
+        stage("2. Read .env file"){ 
             steps{ 
                 echo 'Reading .env file' 
                 script {
@@ -41,10 +41,12 @@ pipeline {
 
             } 
         } 
-        stage("three"){ 
+        stage("3. Build docker image from Dockerfile and tag with hostname"){ 
             steps{ 
                 sh """
                 echo "Step 3 of main"
+                docker build -t $dockerhub_USR/$host_name:latest .
+                echo "$dockerhub_PSW | docker login -u $dockerhub_USR --password-stdin"
                 docker ps
                 """ 
             } 
@@ -53,7 +55,9 @@ pipeline {
     post{         
 
         always{      
-
+            sh """
+            docker push $dockerhub_USR/$host_name:latest
+            """
             echo 'This pipeline is completed.' 
         } 
     } 
