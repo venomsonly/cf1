@@ -6,6 +6,7 @@ pipeline {
             steps{
                 sh """
                 echo "Step 1 of main"
+                rm -rf .DS_Store .git node_modules .next build
                 """ 
             } 
         } 
@@ -14,6 +15,7 @@ pipeline {
                 echo 'step 2' 
                 sleep 5
                 sh """
+                
                 yarn install
                 yarn build
                 """
