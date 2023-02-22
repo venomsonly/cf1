@@ -1,0 +1,93 @@
+Each level of the pipeline will be indicated by a keyword with the 
+related block inside its associated curly braces. 
+At a minimum, a pipeline must have the pipeline block, the agent block, 
+the stages block with some stage blocks inside, and some step blocks 
+inside the stage blocks:
+
+pipeline { 
+    agent{}      
+
+    stages{ 
+        stage("Stage Name"){ 
+            step{} 
+        } 
+    } 
+}
+
+The keywords can be found in the documentation. The agent block of code 
+tells Jenkins which nodes to run the pipeline on. This block must 
+always be present, but we need not always be specific. We can use 
+agent any to allow Jenkins to run pipelines however it sees fit. 
+In the future, we will tell Jenkins to run entire pipelines or portions
+ of pipelines on Docker containers. Stages, stage, and step blocks are 
+ where we will tell the pipeline the steps to perform in order 
+ to build, test, and package our applications.
+
+
+
+ 
+###################################### 
+Configuring Conditional Stage Execution
+
+Sometimes, there are particular stages of a pipeline that are only worth 
+running when certain branches are changed. To accomplish this, we have the 
+when conditional. This is added to a stage to tell Jenkins to only run 
+this stage when a particular branch has been changed. This is especially 
+useful for stages that are for releasing the software. In the case of a 
+Java application, for instance, the code must be packaged. Packaging is 
+only necessary for delivery.
+
+Only the master branch is involved in Continuous Delivery, so we only need 
+Jenkins to run packaging when the master branch has been changed. We may 
+only want certain stages to run when certain directories are changed as 
+well. To accomplish these tasks, we use the when block with the branch and 
+changeset keywords:
+
+when { 
+  branch 'branchname' 
+  changeset "**/path/to/dir/**" 
+}
+
+In our example for multibranch-pipe-01, let's add a conditional for 
+stage ("three") and only have Jenkins run if the worker directory is changed 
+on the master branch:
+
+pipeline { 
+  agent any
+
+  stages{ 
+      stage("one"){ 
+          steps{ 
+              echo 'step 1' 
+              sleep 3 
+          } 
+      } 
+      stage("two"){ 
+          steps{ 
+              echo 'step 2' 
+              sleep 9 
+          } 
+      } 
+      stage("three"){ 
+
+          when{ 
+            branch 'master' 
+            changeset "**/worker/**" 
+            } 
+              steps{ 
+                  echo 'step 3' 
+                  sleep 5 
+              } 
+          } 
+      } 
+
+  post{ 
+    always{ 
+        echo 'This pipeline is completed.' 
+    } 
+  } 
+}
+
+Now, our pipeline will only run the first two stages for every branch. 
+It will only run all three on the master branch only when the worker 
+directory is changed
