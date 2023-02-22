@@ -1,23 +1,42 @@
+def host_name = ""
+def params=[:]
+
 pipeline { 
-    agent any          
+    agent any 
+    environment{
+        dockerhub=credentials('dockerhub_cred_1')
+    }         
 
     stages{ 
-        stage("one"){ 
+        stage("1. Clean, install node packages and build the code"){ 
             steps{
                 sh """
-                echo "Step 1 of main"
+                echo "cleaning previous builds."
                 rm -rf .DS_Store .git node_modules .next build
+                echo "cleaned."
+                yarn install
+                yarn build
+                echo "next project build done."
                 """ 
             } 
         } 
-        stage("two"){ 
+        stage("2. Read file"){ 
             steps{ 
-                echo 'step 2' 
-                sleep 5
+                echo 'Reading .env file' 
+                script {
+                    final String content = readFile(file: ".env")
+                    final List myKeys = extractLines(content)
+                    
+                    myKeys.eachWithIndex { item, index ->
+                        String[] str = item.split('=')
+                        params.put(str[0],str[1])
+                        
+                    }
+
+                   host_name = params.get('NEXT_PUBLIC_HOSTNAME')
+                }
                 sh """
-                
-                yarn install
-                yarn build
+                echo "the host name is $host_name"
                 """
 
             } 
@@ -38,4 +57,14 @@ pipeline {
             echo 'This pipeline is completed.' 
         } 
     } 
+}
+
+
+@NonCPS
+List extractLines(final String content) {
+    List myKeys = []
+    content.eachLine { line -> 
+        myKeys << line
+    }
+    return myKeys
 }
