@@ -3,7 +3,7 @@ pipeline {
 
     stages{ 
         stage("one"){ 
-            steps{ 
+            steps{
                 sh """
                 echo "Step 1 of main"
                 """ 
@@ -11,16 +11,17 @@ pipeline {
         } 
         stage("two"){ 
             steps{ 
-                 echo 'step 2' 
-                 sleep 5
-                 yarn install
-                 yarn build
-                 
+                echo 'step 2' 
+                sleep 5
+                sh """
+                yarn install &&  yarn build
+                """
+
             } 
         } 
         stage("three"){ 
             steps{ 
-                 echo 'step 3' 
+                echo 'step 3' 
             } 
         } 
     }        
@@ -28,7 +29,7 @@ pipeline {
 
         always{      
 
-             echo 'This pipeline is completed.' 
+            echo 'This pipeline is completed.' 
         } 
     } 
 }
