@@ -14,7 +14,8 @@ pipeline {
                 echo 'step 2' 
                 sleep 5
                 sh """
-                yarn install &&  yarn build
+                yarn install
+                yarn build
                 """
 
             } 
