@@ -45,7 +45,7 @@ pipeline {
             steps{ 
                 sh """
                 echo "Step 3 of main"
-                docker build -t $dockerhub_USR/$host_name:latest .
+                docker build -t registry.hub.docker.com/$dockerhub_USR/$host_name:latest .
                 echo "$dockerhub_PSW | docker login -u $dockerhub_USR --password-stdin"
                 docker ps
                 """ 
