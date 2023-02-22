@@ -56,7 +56,7 @@ pipeline {
 
         always{      
             sh """
-            docker push $dockerhub_USR/$host_name:latest
+            docker push registry.hub.docker.com/$dockerhub_USR/$host_name:latest
             """
             echo 'This pipeline is completed.' 
         } 
