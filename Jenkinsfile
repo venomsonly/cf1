@@ -12,7 +12,6 @@ pipeline {
             steps{
                 
                 sh """
-                echo "$dockerhub_PSW | docker login -u $dockerhub_USR --password-stdin"
                 echo "cleaning previous builds."
                 rm -rf .DS_Store .git node_modules .next build
                 echo "cleaned."
@@ -50,9 +49,6 @@ pipeline {
                 echo docker login and image building
                 """
                 sh "docker build -t $dockerhub_USR/$host_name:latest ."
-                
-                
-                
             } 
         } 
     }        

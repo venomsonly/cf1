@@ -1,2 +1,27 @@
 amitgupta4in
 dckr_pat_eK2bXJlDqIps8TKypxDbT1dDHKs
+
+
+sh "echo $dockerhub_PSW | docker login -u $dockerhub_USR --password-stdin"
+
+
+
+
+
+CI/CD.
+
+The flow:
+1. One git repo with multiple branches.
+2. Each site will have its own branch.
+3. Each git branch will contain a .env file and assets (can be local or use api-server).
+
+To-DO:
+1. Create a git repo (main branch) with the name 'amt-15-mb-sites'
+2. Make amit collaborator for this repo.
+3. Make the main branch working for one site. Say 'handyman.us'
+4. From the main branch create a new branch with domain name. Say 'handyman.us'
+5. Push the new branch to GitHub.
+
+Note:
+1. Branch names main, dev, testing will be excluded.
+2. Branch name must be the site domain name. Say for site handyman.us, the branch name will be 'handyman.us'.
