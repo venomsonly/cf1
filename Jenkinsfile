@@ -1,27 +1,41 @@
-def host_name = ""
+def host_name=""
 def params=[:]
-def SERVERIP = "15.204.60.78"
+def SSH_USER="root"
+def SERVERIP="15.204.60.78"
 pipeline { 
-    // agent any 
-    agent {
-        docker { image 'node:18' }
-    }
+    agent any 
+    // agent {
+    //     docker { image 'node:18' }
+    // }
     environment{
         dockerhub=credentials('dockerhub_cred_1')
     }         
 
     stages{ 
-        // stage("0. Configuring SSH"){
-        //     steps{
-        //         - eval $(ssh-agent -s)    
-        //         - echo "$SSH_PRIVATE_KEY" | ssh-add -
-        //         - mkdir ~/.ssh
-        //         - chmod 700 ~/.ssh
-        //         - ssh-keyscan $SERVERIP >> ~/.ssh/known_hosts
-        //         - chmod 644 ~/.ssh/known_hosts
+        stage("0. Configuring SSH"){
+            steps{
+                sh """
+                eval | ssh-agent -s
+                echo "$SSH_PRIVATE_KEY" | ssh-add -
+                mkdir ~/.ssh
+                chmod 700 ~/.ssh
+                ssh-keyscan $SERVERIP >> ~/.ssh/known_hosts
+                chmod 644 ~/.ssh/known_hosts
+                """
+                sh """
+                ssh $SSH_USER@$SERVERIP "ls /root/"
+                """
 
-        //     }
-        // }
+            }
+        }
+    //     echo "Deploying to server"
+    //   - ssh $SSH_USER@$SERVERIP "sudo rm -rf $DEST_DIR/*"
+    //   - scp -r build/* $SSH_USER@$SERVERIP:$DEST_DIR/
+    //   - ssh $SSH_USER@$SERVERIP "sudo chown -R www-data. $DEST_DIR/; sudo chmod -R 775 $DEST_DIR"
+    //   - ssh $SSH_USER@$SERVERIP "sudo systemctl restart apache2"
+    //   - echo "Deployed"
+
+
         stage("1. Clean, install node packages and build the code"){ 
             steps{
                 
