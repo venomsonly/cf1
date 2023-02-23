@@ -102,12 +102,6 @@ pipeline {
             sh """
             echo 'This pipeline is completed. Sending slack msg now!'
             """
-            sh """
-            echo "Step 3 of main"
-            echo docker login and image building
-            yes Y | docker system prune
-            yes Y | docker network prune
-            """
         } 
     } 
 }
