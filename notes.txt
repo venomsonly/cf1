@@ -5,7 +5,15 @@ dckr_pat_eK2bXJlDqIps8TKypxDbT1dDHKs
 
 sh "echo $dockerhub_PSW | docker login -u $dockerhub_USR --password-stdin"
 
-
+ sh """
+                eval "\$(ssh-agent -s)"
+                echo "$SSH_PRIVATE_KEY" | ssh-add -
+                mkdir ~/.ssh
+                chmod 700 ~/.ssh
+                ssh-keyscan $SERVERIP >> ~/.ssh/known_hosts
+                chmod 644 ~/.ssh/known_hosts
+                ssh $SSH_USER@$SERVERIP "ls /root/"
+                """
 
 CI/CD.
 

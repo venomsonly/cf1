@@ -15,15 +15,10 @@ pipeline {
         stage("0. Configuring SSH"){
             steps{
                 echo "This is stage 0"
-                sh """
-                echo "$SSH_PRIVATE_KEY" | ssh-add -
-                mkdir ~/.ssh
-                chmod 700 ~/.ssh
-                ssh-keyscan $SERVERIP >> ~/.ssh/known_hosts
-                chmod 644 ~/.ssh/known_hosts
-                ssh $SSH_USER@$SERVERIP "ls /root/"
-                """
-
+                sshagent(["$SSH_PRIVATE_KEY"]) {
+                    sh "ssh -o StrictHostKeyChecking=no -l $SSH_USER $SERVERIP uname -a"
+                    sh "ls /root/"
+                }
 
             }
         }
