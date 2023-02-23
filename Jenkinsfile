@@ -64,9 +64,8 @@ pipeline {
             steps{ 
                 sh """
                 echo "pushing image n_$host_name:latest"
-                "docker push $dockerhub_USR/n_$host_name:latest"
                 """
-                
+                sh "docker push $dockerhub_USR/n_$host_name"
             } 
         }
     stage("5. Make changes to nstack.yml file"){ 
