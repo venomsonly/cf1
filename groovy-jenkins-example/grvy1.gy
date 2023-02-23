@@ -1,0 +1,61 @@
+# 1 .this is a method padhoFile
+List padhoFile(final String satnam){
+    List apkaList = []
+    satnam.eachLine{ line ->
+        apkaList << line
+    }
+    return apkaList
+}
+
+# 2. this is a final variable satnam
+final String satnam="hi=1\nbye=2\nokk=3\nhost_name=ecomcube.com"
+##                    (OR)
+# final String content = readFile(file: ".env")
+
+
+# 3. calling method padhoFile(1) and passing parameter satnam(2) and storing the output in 
+#    'out' named variable which receives a list
+out=padhoFile(satnam)
+# printing the 'out' variable
+println(out)
+
+# using for loop to print 'out' list variable contents
+for(int i = 0;i<out.size();i++) {
+         println(out[i]);
+}
+
+# using for loop
+# within it we split each for loop item with delimeter '=' and print it out
+for(int i = 0;i<out.size();i++) {
+         String item=out[i];
+         String[] str = item.split('=');
+         println(str[0]+":"+str[1]);
+}
+
+
+
+## .ENV FILE CONTENTS FOR REFERENCE
+## IGNORE THE POUND SYMBOL
+    # NEXT_PUBLIC_NODE_PORT=3001
+    # NEXT_PUBLIC_FLASK_PORT=5001
+    # NEXT_PUBLIC_REDIS_PORT=6001
+    # NEXT_PUBLIC_HOST_IP=149.56.27.98
+    # NEXT_PUBLIC_API=api15.ecommcube.com/_1apidata
+    # NEXT_PUBLIC_HOSTNAME=towingnearme.us
+    # NEXT_PUBLIC_API_TOKEN=billy
+    # NEXT_PUBLIC_SITEMAP_TYPE=1
+
+
+# declearing a dictionary variable named 'params' for storing the key/value
+# from the .env file
+def params=[:]
+
+# using for loop to store the 'out' variable splitted data into 'params' variable.
+for(int i = 0;i<out.size();i++) {
+         String item=out[i];
+         String[] str = item.split('=');
+         params.put(str[0],str[1]);
+}
+
+
+# For key NEXT_PUBLIC_HOSTNAME we can use params.get('NEXT_PUBLIC_HOSTNAME') to get its value.

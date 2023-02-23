@@ -1,0 +1,24 @@
+
+
+List padhoFile(final String satnam){
+    List apkaList = []
+    satnam.eachLine{ line ->
+        apkaList << line
+    }
+    return apkaList
+}
+
+final String content = readFile(file: ".env")
+
+out=padhoFile(satnam)
+println(out)
+
+for(int i = 0;i<out.size();i++) {
+         println(out[i]);
+}
+
+for(int i = 0;i<out.size();i++) {
+         String item=out[i];
+         String[] str = item.split('=');
+         println(str[0]+":"+str[1]);
+}
