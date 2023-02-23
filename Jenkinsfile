@@ -15,7 +15,7 @@ pipeline {
         stage("0. Configuring SSH"){
             steps{
                 sh """
-                eval | ssh-agent -s
+                // eval | ssh-agent -s
                 echo "$SSH_PRIVATE_KEY" | ssh-add -
                 mkdir ~/.ssh
                 chmod 700 ~/.ssh
