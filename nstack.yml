@@ -1,12 +1,12 @@
 ---
 version: "3"
 services:
-  node-app-___PORT:
-    image: amitgupta4in/___HOSTNAME:latest
+  node-app-PORT:
+    image: amitgupta4in/n_HOSTNAME:latest
     environment: 
       - NODE_ENV=production
     ports:
-      - "___PORT:3000"
+      - "PORT:3000"
     deploy:
       replicas: 1
       update_config:

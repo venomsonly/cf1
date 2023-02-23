@@ -74,8 +74,8 @@ pipeline {
                 echo docker login and image building
                 """
                 script{
-                    sh "sed -i 's/___PORT/${node_port}/g' ./nstack.yml"
-                    sh "sed -i 's/___HOSTNAME/${host_name}/g' ./nstack.yml"
+                    sh "sed -i 's/PORT/${node_port}/g' ./nstack.yml"
+                    sh "sed -i 's/HOSTNAME/${host_name}/g' ./nstack.yml"
                     }
 
             } 
@@ -90,6 +90,9 @@ pipeline {
                     
                     ssh $SSH_USER@$SERVERIP "ls -la /home/jenkins_home/"
                     scp ./nstack.yml $SSH_USER@$SERVERIP:/home/jenkins_home/
+                    ssh $SSH_USER@$SERVERIP "docker stack rm n_$host_name"
+                    ssh $SSH_USER@$SERVERIP "docker stack deploy -c /home/jenkins_home/nstack.yml n_$host_name"
+                    ssh $SSH_USER@$SERVERIP "rm /home/jenkins_home/nstack.yml"
                 """
                 }
             }
