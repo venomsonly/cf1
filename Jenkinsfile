@@ -16,15 +16,14 @@ pipeline {
             steps{
                 echo "This is stage 0"
                 sh """
-                echo "$SSH_PRIVATE_KEY" | ssh-add -
+                echo "$SSH_PRIVATE_KEY | ssh-add -"
                 mkdir ~/.ssh
                 chmod 700 ~/.ssh
                 ssh-keyscan $SERVERIP >> ~/.ssh/known_hosts
                 chmod 644 ~/.ssh/known_hosts
+                ssh "$SSH_USER@$SERVERIP ls /root/"
                 """
-                sh """
-                ssh $SSH_USER@$SERVERIP "ls /root/"
-                """
+
 
             }
         }
