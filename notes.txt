@@ -2,7 +2,9 @@ docker hub name and access token
 amitgupta4in
 dckr_pat_eK2bXJlDqIps8TKypxDbT1dDHKs
 
-
+sshagent(['my-ssh-key']) {
+    sh 'scp ./nstack.yml $SSH_USER@$SERVERIP:/home/jenkins_home/'
+}
 stage("5. Configuring SSH and running command"){
     steps{
         echo "Establishing ssh connection"

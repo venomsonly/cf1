@@ -1,4 +1,5 @@
 def host_name=""
+def node_port=""
 def params=[:]
 def SSH_USER="root"
 def SERVERIP="15.204.60.78"
@@ -37,6 +38,7 @@ pipeline {
                     }
 
                    host_name = params.get('NEXT_PUBLIC_HOSTNAME')
+                   node_port = params.get('NEXT_PUBLIC_NODE_PORT')
                 }
                 sh """
                 echo "the host name is $host_name"
@@ -64,8 +66,21 @@ pipeline {
                 """
                 sh "docker build -t $dockerhub_USR/$host_name:latest ."
             } 
-        } 
-        stage("5. Configuring SSH and running command"){
+        }
+    stage("5. Make changes to nstack.yml file"){ 
+            steps{ 
+                sh """
+                echo "Step 3 of main"
+                echo docker login and image building
+                """
+                script{
+                    sh "sed -i 's/___PORT/${node_port}/g' ./nstack.yml"
+                    sh "sed -i 's/___HOSTNAME/${host_name}/g' ./nstack.yml"
+                    }
+
+            } 
+        }
+        stage("6. Configuring SSH and running command"){
             steps{
                 echo "Establishing ssh connection"
                 sshagent(credentials: ['SSH_PRIVATE_KEY']) {
@@ -74,7 +89,7 @@ pipeline {
                     ssh-keyscan "$SERVERIP" >> ~/.ssh/known_hosts
                     ssh -o StrictHostKeyChecking=no "$SSH_USER@$SERVERIP" uptime
                     ssh $SSH_USER@$SERVERIP "ls -la /home/jenkins_home/"
-                    ssh $SSH_USER@$SERVERIP "touch /home/jenkins_home/abc.txt"
+                    scp ./nstack.yml $SSH_USER@$SERVERIP:/home/jenkins_home/
                 """
                 }
             }
