@@ -66,7 +66,7 @@ pipeline {
             } 
         } 
     
-    stage("4. Push docker to dockerhub with tag $hostname:latest"){ 
+    stage("4. Push docker to dockerhub with tag hostname:latest"){ 
             steps{ 
                 sh """
                 echo "Step 3 of main"
