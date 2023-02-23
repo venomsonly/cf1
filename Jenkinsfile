@@ -49,6 +49,8 @@ pipeline {
                 sh """
                 echo "Step 3 of main"
                 echo docker login and image building
+                yes Y | docker system prune
+                yes Y | docker network prune
                 """
                 sh "docker build -t $dockerhub_USR/$host_name:latest ."
             } 
@@ -63,7 +65,20 @@ pipeline {
                 sh "docker build -t $dockerhub_USR/$host_name:latest ."
             } 
         } 
-   
+        stage("5. Configuring SSH and running command"){
+            steps{
+                echo "Establishing ssh connection"
+                sshagent(credentials: ['SSH_PRIVATE_KEY']) {
+                sh """
+                    [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
+                    ssh-keyscan "$SERVERIP" >> ~/.ssh/known_hosts
+                    ssh -o StrictHostKeyChecking=no "$SSH_USER@$SERVERIP" uptime
+                    ssh $SSH_USER@$SERVERIP "ls /home/jenkins_home/"
+                    ssh $SSH_USER@$SERVERIP "touch /home/jenkins_home/test.txt"
+                """
+                }
+            }
+        }
     } 
 
 
