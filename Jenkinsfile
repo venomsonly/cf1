@@ -12,22 +12,6 @@ pipeline {
     }         
 
     stages{ 
-        stage("0. Configuring SSH"){
-            steps{
-                echo "This is stage of ssh"
-
-
-                sshagent(credentials: ['SSH_PRIVATE_KEY']) {
-                sh """
-                    [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
-                    ssh-keyscan "$SERVERIP" >> ~/.ssh/known_hosts
-                    ssh -o StrictHostKeyChecking=no "$SSH_USER@$SERVERIP" uptime
-                    ssh $SSH_USER@$SERVERIP "ls /home/jenkins_home/"
-                """
-                }
-            }
-        }
-
         stage("1. Clean, install node packages and build the code"){ 
             steps{
                 
@@ -81,6 +65,20 @@ pipeline {
                 sh "docker build -t $dockerhub_USR/$host_name:latest ."
             } 
         } 
+        stage("5. Configuring SSH and running command"){
+            steps{
+                echo "Establishing ssh connection"
+                sshagent(credentials: ['SSH_PRIVATE_KEY']) {
+                sh """
+                    [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
+                    ssh-keyscan "$SERVERIP" >> ~/.ssh/known_hosts
+                    ssh -o StrictHostKeyChecking=no "$SSH_USER@$SERVERIP" uptime
+                    ssh $SSH_USER@$SERVERIP "ls /home/jenkins_home/"
+                    ssh $SSH_USER@$SERVERIP "touch /home/jenkins_home/test.txt"
+                """
+                }
+            }
+        }
     }      
     post{         
 
