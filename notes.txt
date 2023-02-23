@@ -5,6 +5,11 @@ dckr_pat_eK2bXJlDqIps8TKypxDbT1dDHKs
 
 sh "echo $dockerhub_PSW | docker login -u $dockerhub_USR --password-stdin"
 
+
+                sshagent(credentials : ["SSH_PRIVATE_KEY"]) {
+                    sh 'ssh -o StrictHostKeyChecking=no $SSH_USER@$SERVERIP uptime'
+
+                }
  sh """
                 eval "\$(ssh-agent -s)"
                 echo "$SSH_PRIVATE_KEY" | ssh-add -
