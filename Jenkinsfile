@@ -54,7 +54,7 @@ pipeline {
                 yes Y | docker system prune
                 yes Y | docker network prune
                 """
-                sh "docker build -t $dockerhub_USR/$host_name:latest ."
+                sh "docker build -t $dockerhub_USR/n_$host_name:latest ."
             } 
         } 
     
@@ -64,7 +64,7 @@ pipeline {
                 echo "Step 3 of main"
                 echo docker login and image building
                 """
-                sh "docker build -t $dockerhub_USR/$host_name:latest ."
+                sh "docker build -t $dockerhub_USR/n_$host_name:latest ."
             } 
         }
     stage("5. Make changes to nstack.yml file"){ 
