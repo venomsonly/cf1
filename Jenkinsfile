@@ -20,7 +20,7 @@ pipeline {
                 sshagent(credentials: ['SSH_PRIVATE_KEY']) {
                 sh """
                     [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
-                    ssh-keyscan -t rsa,dsa "$SSH_USER@$SERVERIP" >> ~/.ssh/known_hosts
+                    ssh-keyscan "$SERVERIP" >> ~/.ssh/known_hosts
                     ssh -o StrictHostKeyChecking=no "$SSH_USER@$SERVERIP" uptime
                 """
                 }
