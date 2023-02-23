@@ -56,6 +56,7 @@ pipeline {
                 yes Y | docker network prune
                 """
                 sh "docker build -t $dockerhub_USR/n_$host_name:latest ."
+                sh "docker images"
             } 
         } 
     
