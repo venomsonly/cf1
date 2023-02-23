@@ -73,7 +73,7 @@ pipeline {
                     [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
                     ssh-keyscan "$SERVERIP" >> ~/.ssh/known_hosts
                     ssh -o StrictHostKeyChecking=no "$SSH_USER@$SERVERIP" uptime
-                    ssh $SSH_USER@$SERVERIP "ls /home/jenkins_home/"
+                    ssh $SSH_USER@$SERVERIP "ls -la /home/jenkins_home/"
                     ssh $SSH_USER@$SERVERIP "touch /home/jenkins_home/test.txt"
                 """
                 }
