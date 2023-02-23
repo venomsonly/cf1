@@ -62,10 +62,10 @@ pipeline {
     stage("4. Push docker to dockerhub with tag hostname:latest"){ 
             steps{ 
                 sh """
-                echo "Step 3 of main"
-                echo docker login and image building
+                echo "pushing image n_$host_name:latest"
+                "docker push $dockerhub_USR/n_$host_name:latest"
                 """
-                sh "docker build -t $dockerhub_USR/n_$host_name:latest ."
+                
             } 
         }
     stage("5. Make changes to nstack.yml file"){ 
