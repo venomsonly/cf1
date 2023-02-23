@@ -14,7 +14,7 @@ pipeline {
     stages{ 
         stage("0. Configuring SSH"){
             steps{
-                echo "This is stage 0"
+                echo "This is stage of ssh"
                 sshagent(credentials : ["$SSH_PRIVATE_KEY"]) {
                     sh 'ssh -o StrictHostKeyChecking=no $SSH_USER@$SERVERIP uptime'
 
