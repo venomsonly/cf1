@@ -17,7 +17,7 @@ pipeline {
                 echo "This is stage 0"
                 sshagent(["$SSH_PRIVATE_KEY"]) {
                     sh "ssh -o StrictHostKeyChecking=no -l $SSH_USER $SERVERIP uname -a"
-                    sh "ls /root/"
+                    sh "ssh  -o StrictHostKeyChecking=no -l $SSH_USER $SERVERIP ls /root/"
                 }
 
             }
