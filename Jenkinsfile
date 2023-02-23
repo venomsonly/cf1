@@ -2,7 +2,10 @@ def host_name = ""
 def params=[:]
 def SERVERIP = "15.204.60.78"
 pipeline { 
-    agent any 
+    // agent any 
+    agent {
+        docker { image 'node:18' }
+    }
     environment{
         dockerhub=credentials('dockerhub_cred_1')
     }         
