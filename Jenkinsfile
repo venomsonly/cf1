@@ -4,9 +4,7 @@ def SSH_USER="root"
 def SERVERIP="15.204.60.78"
 pipeline { 
     agent any 
-    // agent {
-    //     docker { image 'node:18' }
-    // }
+
     environment{
         dockerhub=credentials('dockerhub_cred_1')
     }         
@@ -65,30 +63,17 @@ pipeline {
                 sh "docker build -t $dockerhub_USR/$host_name:latest ."
             } 
         } 
-        stage("5. Configuring SSH and running command"){
-            steps{
-                echo "Establishing ssh connection"
-                sshagent(credentials: ['SSH_PRIVATE_KEY']) {
-                sh """
-                    [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
-                    ssh-keyscan "$SERVERIP" >> ~/.ssh/known_hosts
-                    ssh -o StrictHostKeyChecking=no "$SSH_USER@$SERVERIP" uptime
-                    ssh $SSH_USER@$SERVERIP "ls /home/jenkins_home/"
-                    ssh $SSH_USER@$SERVERIP "touch /home/jenkins_home/test.txt"
-                """
-                }
-            }
-        }
+   
     } 
-    
-         
+
+
     post{         
 
         always{      
             sh """
-            docker ps
+            echo 'This pipeline is completed. Sending slack msg now!'
             """
-            echo 'This pipeline is completed. Sending slack msg now!' 
+             
         } 
     } 
 }
