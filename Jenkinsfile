@@ -14,6 +14,7 @@ pipeline {
     stages{ 
         stage("0. Configuring SSH"){
             steps{
+                echo "This is stage 0"
                 sh """
                 // eval | ssh-agent -s
                 echo "$SSH_PRIVATE_KEY" | ssh-add -
