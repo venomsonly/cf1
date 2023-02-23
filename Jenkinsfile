@@ -49,12 +49,7 @@ pipeline {
         } 
         stage("3. Build docker image from Dockerfile and tag with hostname"){ 
             steps{ 
-                sh """
-                echo "Step 3 of main"
-                echo docker login and image building
-                yes Y | docker system prune
-                yes Y | docker network prune
-                """
+
                 sh "docker build -t $dockerhub_USR/n_$host_name:latest ."
                 sh "docker images"
             } 

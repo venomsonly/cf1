@@ -2,6 +2,16 @@ docker hub name and access token
 amitgupta4in
 dckr_pat_eK2bXJlDqIps8TKypxDbT1dDHKs
 
+
+
+
+                sh """
+                echo "Step 3 of main"
+                echo docker login and image building
+                yes Y | docker system prune
+                yes Y | docker network prune
+                """
+                
 sshagent(['my-ssh-key']) {
     sh 'scp ./nstack.yml $SSH_USER@$SERVERIP:/home/jenkins_home/'
 }
