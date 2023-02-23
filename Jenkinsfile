@@ -22,13 +22,6 @@ pipeline {
 
             }
         }
-    //     echo "Deploying to server"
-    //   - ssh $SSH_USER@$SERVERIP "sudo rm -rf $DEST_DIR/*"
-    //   - scp -r build/* $SSH_USER@$SERVERIP:$DEST_DIR/
-    //   - ssh $SSH_USER@$SERVERIP "sudo chown -R www-data. $DEST_DIR/; sudo chmod -R 775 $DEST_DIR"
-    //   - ssh $SSH_USER@$SERVERIP "sudo systemctl restart apache2"
-    //   - echo "Deployed"
-
 
         stage("1. Clean, install node packages and build the code"){ 
             steps{
