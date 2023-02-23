@@ -4,6 +4,6 @@ import styles from '../styles/Home.module.css'
 
 export default function Home() {
   return (
-    <><h1>this is cf1   ok000</h1></>
+    <><h1><center>This is a change i made</center></h1></>
   )
 }
