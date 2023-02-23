@@ -93,7 +93,7 @@ pipeline {
                     scp ./nstack.yml $SSH_USER@$SERVERIP:/home/jenkins_home/
                     ssh $SSH_USER@$SERVERIP "docker stack rm n_$host_name"
                     ssh $SSH_USER@$SERVERIP "docker stack deploy -c /home/jenkins_home/nstack.yml n_$host_name"
-                    ssh $SSH_USER@$SERVERIP "rm /home/jenkins_home/nstack.yml"
+                    ssh $SSH_USER@$SERVERIP "cat /home/jenkins_home/nstack.yml"
                 """
                 }
             }
