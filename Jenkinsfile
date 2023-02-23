@@ -11,17 +11,17 @@ pipeline {
     }         
 
     stages{ 
-        stage("0. Configuring SSH"){
-            steps{
-                - eval $(ssh-agent -s)    
-                - echo "$SSH_PRIVATE_KEY" | ssh-add -
-                - mkdir ~/.ssh
-                - chmod 700 ~/.ssh
-                - ssh-keyscan $SERVERIP >> ~/.ssh/known_hosts
-                - chmod 644 ~/.ssh/known_hosts
+        // stage("0. Configuring SSH"){
+        //     steps{
+        //         - eval $(ssh-agent -s)    
+        //         - echo "$SSH_PRIVATE_KEY" | ssh-add -
+        //         - mkdir ~/.ssh
+        //         - chmod 700 ~/.ssh
+        //         - ssh-keyscan $SERVERIP >> ~/.ssh/known_hosts
+        //         - chmod 644 ~/.ssh/known_hosts
 
-            }
-        }
+        //     }
+        // }
         stage("1. Clean, install node packages and build the code"){ 
             steps{
                 
