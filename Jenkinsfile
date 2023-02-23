@@ -47,10 +47,11 @@ pipeline {
             steps{ 
                 sh """
                 echo "Step 3 of main"
-                docker build -t $dockerhub_USR/$host_name:latest .
-                echo "$dockerhub_PSW | docker login -u $dockerhub_USR --password-stdin"
-                docker ps
-                """ 
+                echo docker login and image building
+                """
+                sh "docker build -t $dockerhub_USR/$host_name:latest ."
+                sh "echo $dockerhub_PSW | docker login -u $dockerhub_USR --password-stdin"
+                sh "curl -v https://registry-1.docker.io/v2/_catalog"
             } 
         } 
     }        
