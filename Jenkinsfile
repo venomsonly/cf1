@@ -74,7 +74,7 @@ pipeline {
                     ssh-keyscan "$SERVERIP" >> ~/.ssh/known_hosts
                     ssh -o StrictHostKeyChecking=no "$SSH_USER@$SERVERIP" uptime
                     ssh $SSH_USER@$SERVERIP "ls -la /home/jenkins_home/"
-                    ssh $SSH_USER@$SERVERIP "touch /home/jenkins_home/test.txt"
+                    ssh $SSH_USER@$SERVERIP "touch /home/jenkins_home/abc.txt"
                 """
                 }
             }
