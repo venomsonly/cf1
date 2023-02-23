@@ -38,6 +38,7 @@ pipeline {
                     }
 
                    host_name = params.get('NEXT_PUBLIC_HOSTNAME')
+                   host_name = host_name.replace(".", "_")
                    node_port = params.get('NEXT_PUBLIC_NODE_PORT')
                 }
                 sh """
