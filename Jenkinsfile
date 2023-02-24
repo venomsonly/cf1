@@ -103,6 +103,7 @@ pipeline {
             sh """
             echo 'This pipeline is completed. Sending slack msg now!'
             """
+            sh 'docker rmi -f $(docker images -q)'
         } 
     } 
 }
