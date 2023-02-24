@@ -2,7 +2,7 @@ def host_name=""
 def node_port=""
 def params=[:]
 def SSH_USER="root"
-def SERVERIP="15.204.60.78"
+def SERVERIP=""
 pipeline { 
     agent any 
 
@@ -40,6 +40,7 @@ pipeline {
                    host_name = params.get('NEXT_PUBLIC_HOSTNAME')
                    host_name = host_name.replace(".", "_")
                    node_port = params.get('NEXT_PUBLIC_NODE_PORT')
+                   SERVERIP = params.get('NEXT_PUBLIC_HOST_IP')
                 }
                 sh """
                 echo "the host name is $host_name"
