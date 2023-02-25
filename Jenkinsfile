@@ -114,10 +114,7 @@ pipeline {
         }
         stage("6. Configuring SSH"){
             steps{
-                script {
-                    slackMsg="Failed at stage 6"
-                    slackColor="warning"
-                }
+
                 echo "Establishing ssh connection"
                 sshagent(credentials: ['SSH_PRIVATE_KEY']) {
                 sh """
@@ -125,10 +122,10 @@ pipeline {
                     ssh-keyscan "$SERVERIP" >> ~/.ssh/known_hosts
                     
                     ssh $SSH_USER@$SERVERIP "ls -la /home/jenkins_home/"
-                    scp ./nstack.yml $SSH_USER@$SERVERIP:/home/jenkins_home/n_$host_name.yml
-                    
-                    ssh $SSH_USER@$SERVERIP "docker stack deploy -c /home/jenkins_home/n_$host_name.yml n_$host_name"
-                    ssh $SSH_USER@$SERVERIP "cat /home/jenkins_home/n_$host_name.yml"
+                    scp ./nstack.yml $SSH_USER@$SERVERIP:/home/jenkins_home/n_${host_name}.yml
+                    ssh $SSH_USER@$SERVERIP "docker stack rm n_${host_name}"
+                    ssh $SSH_USER@$SERVERIP "docker stack deploy -c /home/jenkins_home/n_${host_name}.yml n_${host_name}"
+                    ssh $SSH_USER@$SERVERIP "cat /home/jenkins_home/n_${host_name}.yml"
                 """
                 }
                 script {
