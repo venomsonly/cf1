@@ -140,9 +140,6 @@ pipeline {
                 sh """
                 docker stop -f \$(docker container ls -q)
                 docker rmi -f \$(docker images -q)
-                yes Y | docker system prune
-                yes Y | docker network prune
-                yes Y | docker container prune
                 """
             } 
         }
