@@ -25,7 +25,7 @@ pipeline {
                 echo "cleaning previous builds."
                 rm -rf .DS_Store .git node_modules .next build
                 echo "cleaned."
-                npm install --unsafe-perm -g cordova-res
+                npm install --unsafe-perm
                 npm run build
                 echo "next project build done."
                 """ 
