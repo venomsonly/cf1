@@ -133,7 +133,7 @@ pipeline {
                 }
                 script {
                     slackColor="good"
-                    slackMsg="All 6 stages passed ${env.JOB_NAME}:${env.BUILD_NUMBER} ${env.BUILD_URL} and deployed successfully"
+                    slackMsg="All 6 stages passed for  and deployed successfully"
                 }
             }
         }
@@ -148,7 +148,7 @@ pipeline {
             echo 'This pipeline is completed. Sending slack msg now!'
             """
             slackSend channel: "${slackChannel}", color: "${slackColor}", message: "${slackMsg}"
-            #sh 'docker rmi -f $(docker images -q)'
+            
         } 
     } 
 }
