@@ -5,6 +5,7 @@ def SSH_USER="root"
 def SERVERIP=""
 def slackMsg="failed!!"
 def slackChannel="#amt-cicd"
+def domain_name=""
 
 pipeline { 
     agent any 
@@ -49,7 +50,7 @@ pipeline {
                         params.put(str[0],str[1])
                         
                     }
-
+                   domain_name = params.get('NEXT_PUBLIC_HOSTNAME')
                    host_name = params.get('NEXT_PUBLIC_HOSTNAME')
                    host_name = host_name.replace(".", "_")
                    node_port = params.get('NEXT_PUBLIC_NODE_PORT')
@@ -161,7 +162,7 @@ pipeline {
             sh """
             echo 'This pipeline is completed. Sending slack msg now!'
             """
-            slackSend channel: "${slackChannel}", color: "${slackColor}", message: "${slackMsg}"
+            slackSend channel: "${slackChannel}", color: "${slackColor}", message: "${domain_name} ${env.JOB_NAME}:${env.BUILD_NUMBER} ${env.BUILD_URL} \n ${slackMsg}"
             
         } 
     } 
