@@ -15,7 +15,7 @@ pipeline {
     }         
 
     stages{ 
-        stage("1. Clean, install node packages and build the code"){ 
+        stage("1. Building code"){ 
             steps{
                 sh 'npm config ls'
                 script {
@@ -36,7 +36,7 @@ pipeline {
                 }
             } 
         } 
-        stage("2. Read .env file"){ 
+        stage("2. Reading .env file"){ 
             steps{ 
                 script {
                     slackMsg="Failed at stage 2"
