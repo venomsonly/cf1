@@ -25,7 +25,7 @@ pipeline {
                 echo "cleaning previous builds."
                 rm -rf .DS_Store .git node_modules .next build
                 echo "cleaned."
-                yarn install
+                yarn install --ignore-engines
                 yarn build
                 echo "next project build done."
                 """ 
