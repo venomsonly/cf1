@@ -162,7 +162,7 @@ pipeline {
             sh """
             echo 'This pipeline is completed. Sending slack msg now!'
             """
-            slackSend channel: "${slackChannel}", color: "${slackColor}", message: "Domain: ${domain_name}\n Job: ${env.JOB_NAME}\n Build: ${env.BUILD_NUMBER}\n ${env.BUILD_URL} \n ${slackMsg}"
+            slackSend channel: "${slackChannel}", color: "${slackColor}", message: "Domain: ${domain_name}\nNode App:http://${SERVERIP}:${node_port}\nJob: ${env.JOB_NAME}\nBuild: ${env.BUILD_NUMBER}\n${env.BUILD_URL} \n ${slackMsg}"
             
         } 
     } 
