@@ -25,8 +25,6 @@ pipeline {
                 echo "cleaning previous builds."
                 rm -rf .DS_Store .git node_modules .next build
                 echo "cleaned."
-                curl -fsSL https://deb.nodesource.com/setup_14.x
-                apt-get install -y nodejs
                 npm install
                 npm run build
                 echo "next project build done."
