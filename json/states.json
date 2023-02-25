@@ -1,0 +1,297 @@
+[
+    {
+        "name": "Alabama",
+        "path": "/alabama",
+        "abbreviation": "AL"
+    },
+    {
+        "name": "Alaska",
+        "path": "/alaska",
+        "abbreviation": "AK"
+    },
+    {
+        "name": "American Samoa",
+        "path": "/american-samoa",
+        "abbreviation": "AS"
+    },
+    {
+        "name": "Arizona",
+        "path": "/arizona",
+        "abbreviation": "AZ"
+    },
+    {
+        "name": "Arkansas",
+        "path": "/arkansas",
+        "abbreviation": "AR"
+    },
+    {
+        "name": "California",
+        "path": "/california",
+        "abbreviation": "CA"
+    },
+    {
+        "name": "Colorado",
+        "path": "/colorado",
+        "abbreviation": "CO"
+    },
+    {
+        "name": "Connecticut",
+        "path": "/connecticut",
+        "abbreviation": "CT"
+    },
+    {
+        "name": "Delaware",
+        "path": "/delaware",
+        "abbreviation": "DE"
+    },
+    {
+        "name": "District Of Columbia",
+        "path": "/district Of Columbia",
+        "abbreviation": "DC"
+    },
+    {
+        "name": "Federated Micronesia",
+        "path": "/federated Micronesia",
+        "abbreviation": "FM"
+    },
+    {
+        "name": "Florida",
+        "path": "/florida",
+        "abbreviation": "FL"
+    },
+    {
+        "name": "Georgia",
+        "path": "/georgia",
+        "abbreviation": "GA"
+    },
+    {
+        "name": "Guam",
+        "path": "/guam",
+        "abbreviation": "GU"
+    },
+    {
+        "name": "Hawaii",
+        "path": "/hawaii",
+        "abbreviation": "HI"
+    },
+    {
+        "name": "Idaho",
+        "path": "/idaho",
+        "abbreviation": "ID"
+    },
+    {
+        "name": "Illinois",
+        "path": "/illinois",
+        "abbreviation": "IL"
+    },
+    {
+        "name": "Indiana",
+        "path": "/indiana",
+        "abbreviation": "IN"
+    },
+    {
+        "name": "Iowa",
+        "path": "/iowa",
+        "abbreviation": "IA"
+    },
+    {
+        "name": "Kansas",
+        "path": "/kansas",
+        "abbreviation": "KS"
+    },
+    {
+        "name": "Kentucky",
+        "path": "/kentucky",
+        "abbreviation": "KY"
+    },
+    {
+        "name": "Louisiana",
+        "path": "/louisiana",
+        "abbreviation": "LA"
+    },
+    {
+        "name": "Maine",
+        "path": "/maine",
+        "abbreviation": "ME"
+    },
+    {
+        "name": "Marshall Islands",
+        "path": "/marshall-islands",
+        "abbreviation": "MH"
+    },
+    {
+        "name": "Maryland",
+        "path": "/maryland",
+        "abbreviation": "MD"
+    },
+    {
+        "name": "Massachusetts",
+        "path": "/massachusetts",
+        "abbreviation": "MA"
+    },
+    {
+        "name": "Michigan",
+        "path": "/michigan",
+        "abbreviation": "MI"
+    },
+    {
+        "name": "Minnesota",
+        "path": "/minnesota",
+        "abbreviation": "MN"
+    },
+    {
+        "name": "Mississippi",
+        "path": "/mississippi",
+        "abbreviation": "MS"
+    },
+    {
+        "name": "Missouri",
+        "path": "/missouri",
+        "abbreviation": "MO"
+    },
+    {
+        "name": "Montana",
+        "path": "/montana",
+        "abbreviation": "MT"
+    },
+    {
+        "name": "Nebraska",
+        "path": "/nebraska",
+        "abbreviation": "NE"
+    },
+    {
+        "name": "Nevada",
+        "path": "/nevada",
+        "abbreviation": "NV"
+    },
+    {
+        "name": "New Hampshire",
+        "path": "/new-hampshire",
+        "abbreviation": "NH"
+    },
+    {
+        "name": "New Jersey",
+        "path": "/new-jersey",
+        "abbreviation": "NJ"
+    },
+    {
+        "name": "New Mexico",
+        "path": "/New Mexico",
+        "abbreviation": "NM"
+    },
+    {
+        "name": "New York",
+        "path": "/new-york",
+        "abbreviation": "NY"
+    },
+    {
+        "name": "North Carolina",
+        "path": "/north-carolina",
+        "abbreviation": "NC"
+    },
+    {
+        "name": "North Dakota",
+        "path": "/north-dakota",
+        "abbreviation": "ND"
+    },
+    {
+        "name": "Northern Mariana Islands",
+        "path": "/northern-mariana-islands",
+        "abbreviation": "MP"
+    },
+    {
+        "name": "Ohio",
+        "path": "/ohio",
+        "abbreviation": "OH"
+    },
+    {
+        "name": "Oklahoma",
+        "path": "/oklahoma",
+        "abbreviation": "OK"
+    },
+    {
+        "name": "Oregon",
+        "path": "/oregon",
+        "abbreviation": "OR"
+    },
+    {
+        "name": "Palau",
+        "path": "/palau",
+        "abbreviation": "PW"
+    },
+    {
+        "name": "Pennsylvania",
+        "path": "/pennsylvania",
+        "abbreviation": "PA"
+    },
+    {
+        "name": "Puerto Rico",
+        "path": "/puerto-rico",
+        "abbreviation": "PR"
+    },
+    {
+        "name": "Rhode Island",
+        "path": "/rhode-island",
+        "abbreviation": "RI"
+    },
+    {
+        "name": "South Carolina",
+        "path": "/south-carolina",
+        "abbreviation": "SC"
+    },
+    {
+        "name": "South Dakota",
+        "path": "/south-dakota",
+        "abbreviation": "SD"
+    },
+    {
+        "name": "Tennessee",
+        "path": "/tennessee",
+        "abbreviation": "TN"
+    },
+    {
+        "name": "Texas",
+        "path": "/texas",
+        "abbreviation": "TX"
+    },
+    {
+        "name": "Utah",
+        "path": "/utah",
+        "abbreviation": "UT"
+    },
+    {
+        "name": "Vermont",
+        "path": "/vermont",
+        "abbreviation": "VT"
+    },
+    {
+        "name": "Virgin Islands",
+        "path": "/virgin-islands",
+        "abbreviation": "VI"
+    },
+    {
+        "name": "Virginia",
+        "path": "/virginia",
+        "abbreviation": "VA"
+    },
+    {
+        "name": "Washington",
+        "path": "/Washington",
+        "abbreviation": "WA"
+    },
+    {
+        "name": "West Virginia",
+        "path": "/west-virginia",
+        "abbreviation": "WV"
+    },
+    {
+        "name": "Wisconsin",
+        "path": "/wisconsin",
+        "abbreviation": "WI"
+    },
+    {
+        "name": "Wyoming",
+        "path": "/wyoming",
+        "abbreviation": "WY"
+    }
+]

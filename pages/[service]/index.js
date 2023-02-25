@@ -1,17 +1,16 @@
 import Head from "next/head";
+import { useRouter } from "next/router";
 import {
   Accordian,
-  AreasWeServe,
   Banner,
   CallToActionCard,
   Footer,
+  Grid,
   HowTo,
-  Map,
   Nav,
   ServiceInArea,
   Services,
-  Video,
-} from "../components/containers";
+} from "../../components/containers";
 
 function capitalizeEachWord(mySentence) {
   const words = mySentence.split(" ");
@@ -22,25 +21,23 @@ function capitalizeEachWord(mySentence) {
   return words.join(" ");
 }
 
-export default function Home({
-  BASE_URL,
-  service,
-  middletext,
-  middleTextTitle,
+export default function Service({
   banner_text_1,
   banner_text_2,
-  statesData,
-  services,
-  phone,
+  middletext,
+  middleTextTitle,
   faqs,
   faqstitle,
   faqsdescription,
-  howto,
-  howtoTitle,
-  youtube_video,
-  howtoDescription,
+  phone,
+  apidata,
+  services,
+  BASE_URL,
   meta_title,
   meta_description,
+  howto,
+  howtoTitle,
+  howtoDescription,
   footertag_1,
   footertag_2,
   footertag_3,
@@ -49,16 +46,32 @@ export default function Home({
   quicklinks,
   copyright,
 }) {
+  const router = useRouter();
+  const { service } = router.query;
+
+  if (router.isFallback) {
+    return;
+    <>...</>;
+  }
+  const gridData = apidata.map((data) => {
+    return { name: data.name, route: data.route };
+  });
+
   const faq_options = faqs.map((data) => {
     const item = JSON.parse(data);
     return { question: item.question, answer: item.answer };
   });
+
   return (
     <div className="text-center">
       <Head>
         <meta charSet="UTF-8" />
         <title>
-          {capitalizeEachWord(meta_title.replaceAll("##phone##", phone))}
+          {capitalizeEachWord(
+            meta_title
+              .replaceAll("##phone##", phone)
+              .replaceAll("##service##", service.replaceAll("-", " "))
+          )}
         </title>
         <meta
           name="description"
@@ -66,7 +79,7 @@ export default function Home({
         />
         <link rel="author" href={`https://${BASE_URL}`} />
         <link rel="publisher" href={`https://${BASE_URL}`} />
-        <link rel="canonical" href={`https://${BASE_URL}`} />
+        <link rel="canonical" href={`https://${BASE_URL}/${service}`} />
         <meta name="robots" content="noindex" />
         <meta name="theme-color" content="#008DE5" />
         <link rel="manifest" href="/manifest.json" />
@@ -99,7 +112,7 @@ export default function Home({
           service.replaceAll("-", " ")
         )}
         banner_text_2={banner_text_2}
-        backgroundImage={service}
+        backgroundImage={service.replaceAll("-", " ")}
       />
       <Services services={services} />
       <ServiceInArea
@@ -110,28 +123,29 @@ export default function Home({
         data={middletext}
         phone={phone}
       />
-      <CallToActionCard
-        service={service.replaceAll("-", " ")}
-        phone={phone}
-        area="United States"
-      />
-      <Accordian
-        options={faq_options}
-        componentTitle={faqstitle}
-        des={faqsdescription}
-      />
-      <Video video={youtube_video} />
-      <Map latitude="" longitude="" />
       <HowTo
-        data={howto}
         service={service.replaceAll("-", " ")}
         componentTitle={howtoTitle.replaceAll(
           "##service##",
           service.replaceAll("-", " ")
         )}
         des={howtoDescription}
+        data={howto}
       />
-      <AreasWeServe service={service.replaceAll("-", " ")} data={statesData} />
+      <Accordian
+        options={faq_options}
+        componentTitle={faqstitle}
+        des={faqsdescription}
+      />
+      <CallToActionCard
+        phone={phone}
+        service={service.replaceAll("-", " ")}
+        area="united states"
+      />
+      <Grid
+        title={`${service.replaceAll("-", " ")} in United States`}
+        data={gridData}
+      />
       <Footer
         footertext={footertext}
         footertag_1={footertag_1}
@@ -145,25 +159,40 @@ export default function Home({
   );
 }
 
-export async function getStaticProps() {
-  // https://api15.ecommcube.com/_1apidata/tagtext?tag=service_0&pass=billy
-  // service
-  const service_ = await fetch(
-    `http://${process.env["NEXT_PUBLIC_API"]}/tagtext?tag=service_0&pass=${process.env["NEXT_PUBLIC_API_TOKEN"]}`
+export async function getStaticPaths(context) {
+  const response = await fetch(
+    `http://${process.env["NEXT_PUBLIC_API"]}/taglist?pattern=service_&pass=${process.env["NEXT_PUBLIC_API_TOKEN"]}`
   );
-  const service = await service_.json();
+  const data = await response.json();
+  const paths = data["list"].map((item) => {
+    return {
+      params: { service: `${item.replaceAll(" ", "-")}` },
+    };
+  });
+  return {
+    paths,
+    fallback: true,
+  };
+}
 
-  // Meta Home Title
-  const _meta_home_title = await fetch(
-    `http://${process.env["NEXT_PUBLIC_API"]}/tagtext?tag=meta_home_title&pass=${process.env["NEXT_PUBLIC_API_TOKEN"]}`
+export async function getStaticProps(context) {
+  const { params } = context;
+  // Meta Service Title
+  const _meta_keyword_title = await fetch(
+    `http://${process.env["NEXT_PUBLIC_API"]}/tagtext?tag=meta_keyword_title&pass=${process.env["NEXT_PUBLIC_API_TOKEN"]}`
   );
-  const meta_home_title = await _meta_home_title.json();
+  const meta_keyword_title = await _meta_keyword_title.json();
 
-  // Meta Home Description
-  const _meta_home_description = await fetch(
-    `http://${process.env["NEXT_PUBLIC_API"]}/tagtext?tag=meta_home_description&pass=${process.env["NEXT_PUBLIC_API_TOKEN"]}`
+  // Meta Service Description
+  const _meta_keyword_description = await fetch(
+    `http://${process.env["NEXT_PUBLIC_API"]}/tagtext?tag=meta_keyword_description&pass=${process.env["NEXT_PUBLIC_API_TOKEN"]}`
   );
-  const meta_home_description = await _meta_home_description.json();
+  const meta_keyword_description = await _meta_keyword_description.json();
+
+  const response = await fetch(
+    `http://${process.env["NEXT_PUBLIC_API"]}/states?pass=${process.env["NEXT_PUBLIC_API_TOKEN"]}`
+  );
+  const data = await response.json();
 
   // BANNER TEXT
   const _banner_text_1 = await fetch(
@@ -175,17 +204,17 @@ export async function getStaticProps() {
   );
   const banner_text_2 = await _banner_text_2.json();
 
+  // Services
+  const _services = await fetch(
+    `http://${process.env["NEXT_PUBLIC_API"]}/taglist?pattern=service_&pass=${process.env["NEXT_PUBLIC_API_TOKEN"]}`
+  );
+  const services = await _services.json();
+
   // default phone number
   const _defaultPhone = await fetch(
     `http://${process.env["NEXT_PUBLIC_API"]}/tagtext?tag=default_phone&pass=${process.env["NEXT_PUBLIC_API_TOKEN"]}`
   );
   const default_phone = await _defaultPhone.json();
-
-  // Youtube Video Link
-  const _youtube_video = await fetch(
-    `http://${process.env["NEXT_PUBLIC_API"]}/tagtext?tag=youtube_video&pass=${process.env["NEXT_PUBLIC_API_TOKEN"]}`
-  );
-  const youtube_video = await _youtube_video.json();
 
   // FAQs
   const _faqs = await fetch(
@@ -203,17 +232,15 @@ export async function getStaticProps() {
   );
   const faqsdescription = await _faqsdescription.json();
 
-  // states api
-  const _states = await fetch(
-    `http://${process.env["NEXT_PUBLIC_API"]}/states?pass=${process.env["NEXT_PUBLIC_API_TOKEN"]}`
+  // middleText
+  const _middleTextTitle = await fetch(
+    `http://${process.env["NEXT_PUBLIC_API"]}/tagtext?tag=home_text_block_title&pass=${process.env["NEXT_PUBLIC_API_TOKEN"]}`
   );
-  const states = await _states.json();
-
-  // Services
-  const _services = await fetch(
-    `http://${process.env["NEXT_PUBLIC_API"]}/taglist?pattern=service_&pass=${process.env["NEXT_PUBLIC_API_TOKEN"]}`
+  const middleTextTitle = await _middleTextTitle.json();
+  const _middletext = await fetch(
+    `http://${process.env["NEXT_PUBLIC_API"]}/taglist?pattern=home_text_block_description&pass=${process.env["NEXT_PUBLIC_API_TOKEN"]}`
   );
-  const services = await _services.json();
+  const middletext = await _middletext.json();
 
   // How To
   const _howto = await fetch(
@@ -230,16 +257,6 @@ export async function getStaticProps() {
     `http://${process.env["NEXT_PUBLIC_API"]}/tagtext?tag=howToComponentDescription&pass=${process.env["NEXT_PUBLIC_API_TOKEN"]}`
   );
   const howToComponentDescription = await _howToComponentDescription.json();
-
-  // middleText
-  const _middleTextTitle = await fetch(
-    `http://${process.env["NEXT_PUBLIC_API"]}/tagtext?tag=home_text_block_title&pass=${process.env["NEXT_PUBLIC_API_TOKEN"]}`
-  );
-  const middleTextTitle = await _middleTextTitle.json();
-  const _middletext = await fetch(
-    `http://${process.env["NEXT_PUBLIC_API"]}/taglist?pattern=home_text_block_description&pass=${process.env["NEXT_PUBLIC_API_TOKEN"]}`
-  );
-  const middletext = await _middletext.json();
 
   // Logo Text
   const _logo_text = await fetch(
@@ -277,35 +294,52 @@ export async function getStaticProps() {
   );
   const copyright = await _copyright.json();
 
-  return {
-    props: {
-      service: service["text"],
-      logo_text: logo_text["text"],
-      middleTextTitle: middleTextTitle["text"],
-      youtube_video: youtube_video["text"],
-      middletext: middletext["list"],
-      faqs: faqs["list"],
-      faqstitle: faqstitle["text"],
-      faqsdescription: faqsdescription["text"],
-      banner_text_1: banner_text_1["text"],
-      banner_text_2: banner_text_2["text"],
-      howto: howto["list"],
-      howtoTitle: howToComponentTitle["text"],
-      howtoDescription: howToComponentDescription["text"],
-      statesData: states["list"],
-      phone: default_phone["text"],
-      services: services["list"],
-      meta_title: meta_home_title["text"],
-      meta_description: meta_home_description["text"],
-      footertag_1: footertag_1["text"],
-      footertag_2: footertag_2["text"],
-      footertag_3: footertag_3["text"],
-      footertag_4: footertag_4["text"],
-      footertext: footertext["text"],
-      quicklinks: quicklinks["list"],
-      copyright: copyright["text"],
-      BASE_URL: process.env.NEXT_PUBLIC_HOSTNAME,
-    },
-    revalidate: 1,
-  };
+  if (data["list"].length == 0) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/404",
+        status: 404,
+      },
+    };
+  } else {
+    let data_arr = [];
+    for (let i = 0; i < data["list"].length; i++) {
+      let obj = {
+        name: capitalizeEachWord(data["list"][i]),
+        route: `/${params.service}/${data["list"][i].replaceAll(" ", "-")}`,
+      };
+      data_arr.push(obj);
+    }
+    return {
+      props: {
+        apidata: data_arr,
+        services: services["list"],
+        middleTextTitle: middleTextTitle["text"],
+        middletext: middletext["list"],
+        faqs: faqs["list"],
+        faqstitle: faqstitle["text"],
+        faqsdescription: faqsdescription["text"],
+        banner_text_1: banner_text_1["text"],
+        banner_text_2: banner_text_2["text"],
+        howto: howto["list"],
+        howtoTitle: howToComponentTitle["text"],
+        howtoDescription: howToComponentDescription["text"],
+        phone: default_phone["text"],
+        quicklinks: quicklinks["list"],
+        meta_title: meta_keyword_title["text"],
+        meta_description: meta_keyword_description["text"],
+        logo_text: logo_text["text"],
+        footertag_1: footertag_1["text"],
+        footertag_2: footertag_2["text"],
+        footertag_3: footertag_3["text"],
+        footertag_4: footertag_4["text"],
+        footertext: footertext["text"],
+        quicklinks: quicklinks["list"],
+        copyright: copyright["text"],
+        BASE_URL: process.env.NEXT_PUBLIC_HOSTNAME,
+      },
+      revalidate: 1,
+    };
+  }
 }

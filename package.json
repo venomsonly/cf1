@@ -1,5 +1,5 @@
 {
-  "name": "cf1",
+  "name": "nation-site-template",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,13 +9,22 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "dotenv": "^16.0.3",
-    "next": "12.3.1",
+    "@headlessui/react": "^1.7.5",
+    "@heroicons/react": "^2.0.13",
+    "@react-hook/intersection-observer": "^3.1.1",
+    "axios": "^1.2.1",
+    "eslint": "8.29.0",
+    "eslint-config-next": "13.0.6",
+    "markdown-it": "^13.0.1",
+    "next": "13.0.6",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-icons": "^4.7.1",
+    "sharp": "^0.31.3"
   },
   "devDependencies": {
-    "eslint": "8.26.0",
-    "eslint-config-next": "12.3.1"
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.20",
+    "tailwindcss": "^3.2.4"
   }
 }

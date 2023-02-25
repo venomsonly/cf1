@@ -1,0 +1,308 @@
+{
+  "title": "Towing Near Me",
+  "contact_num": "(213)-555-1111",
+  "navbar": {
+    "nav_items": [
+      { "name": "home", "path": "/" },
+      { "name": "contact us", "path": "/contact-us" },
+      { "name": "blog", "path": "/blog" }
+    ],
+    "get_listed": {
+      "title": "Get Listed",
+      "options": [
+        { "name": "login", "path": "/login" },
+        { "name": "Create Account", "path": "/signup" }
+      ]
+    }
+  },
+  "map": {
+    "latitude": "40.7128",
+    "longitude": "74.0060"
+  },
+  "services": {
+    "title": "Services we offer",
+    "options": [
+      {
+        "name": "18 Wheeler Towing",
+        "path": "/18-wheeler-towing"
+      },
+      {
+        "name": "Accident Removal",
+        "path": "/accident-removal"
+      },
+      {
+        "name": "Big Rig Towing",
+        "path": "/big-rig-towing"
+      },
+      {
+        "name": "Boat Towing",
+        "path": "/boat-towing"
+      },
+      {
+        "name": "Box Truck Towing",
+        "path": "/box-truck-towing"
+      },
+      {
+        "name": "Broken Ignition Key Removal",
+        "path": "/broken-ignition-key-removal"
+      },
+      {
+        "name": "Bus Towing",
+        "path": "/bus-towing"
+      },
+      {
+        "name": "Car Lockout",
+        "path": "/car-lockout"
+      },
+      {
+        "name": "Car Transportation",
+        "path": "/car-transportation"
+      },
+      {
+        "name": "Change Car Battery",
+        "path": "/change-car-battery"
+      },
+      {
+        "name": "Commercial Towing",
+        "path": "/commercial-towing"
+      },
+      {
+        "name": "Construction Towing",
+        "path": "/construction-towing"
+      },
+      {
+        "name": "Dump Truck Towing",
+        "path": "/dump-truck-towing"
+      },
+      {
+        "name": "Emergency Towing",
+        "path": "/emergency-towing"
+      },
+      {
+        "name": "Fifth Wheel Tow",
+        "path": "/fifth-wheel-tow"
+      },
+      {
+        "name": "Flat Tire Service",
+        "path": "/flat-tire-service"
+      },
+      {
+        "name": "Flatbed Towing",
+        "path": "/flatbed-towing"
+      },
+      {
+        "name": "Fuel Delivery",
+        "path": "/fuel-delivery"
+      },
+      {
+        "name": "Heavy Duty Towing",
+        "path": "/heavy-duty-towing"
+      },
+      {
+        "name": "Jump Start",
+        "path": "/jump-start"
+      },
+      {
+        "name": "Junk Cars For Cash",
+        "path": "/junk-cars-for-cash"
+      },
+      {
+        "name": "Light Duty Towing",
+        "path": "/light-duty-towing"
+      },
+      {
+        "name": "Limo Towing",
+        "path": "/limo-towing"
+      },
+      {
+        "name": "Local Towing",
+        "path": "/local-towing"
+      },
+      {
+        "name": "Long Distance Towing",
+        "path": "/long-distance-towing"
+      },
+      {
+        "name": "Low Clearance Towing",
+        "path": "/low-clearance-towing"
+      },
+      {
+        "name": "Lowboy Towing",
+        "path": "/lowboy-towing"
+      },
+      {
+        "name": "Luxury Car Towing",
+        "path": "/luxury-car-towing"
+      },
+      {
+        "name": "Medium Duty Towing",
+        "path": "/medium-duty-towing"
+      },
+      {
+        "name": "Motorcycle Towing",
+        "path": "/motorcycle-towing"
+      },
+      {
+        "name": "Motorhome Towing",
+        "path": "/motorhome-towing"
+      },
+      {
+        "name": "Off Road Vehicle Recovery",
+        "path": "/off-road-vehicle-recovery"
+      },
+      {
+        "name": "Office Container Tow",
+        "path": "/office-container-tow"
+      },
+      {
+        "name": "Recovery Services",
+        "path": "/recovery-services"
+      },
+      {
+        "name": "Roadside Assistance",
+        "path": "/roadside-assistance"
+      },
+      {
+        "name": "RV Towing",
+        "path": "/rv-towing"
+      },
+      {
+        "name": "School Bus Towing",
+        "path": "/school-bus-towing"
+      },
+      {
+        "name": "Scissor Lift Towing",
+        "path": "/scissor-lift-towing"
+      },
+      {
+        "name": "Semi Truck Towing",
+        "path": "/semi-truck-towing"
+      },
+      {
+        "name": "Shipping Container Tow",
+        "path": "/shipping-container-tow"
+      },
+      {
+        "name": "Tire Change Heavy Duty",
+        "path": "/tire-change-heavy-duty"
+      },
+      {
+        "name": "Towing Cars Without Plates",
+        "path": "/towing-cars-without-plates"
+      },
+      {
+        "name": "Towing For Uber Cars",
+        "path": "/towing-for-uber-cars"
+      },
+      {
+        "name": "Transportation Trailer",
+        "path": "/transportation-trailer"
+      },
+      {
+        "name": "UPS Towing",
+        "path": "/ups-towing"
+      },
+      {
+        "name": "Wheel Lift Tow Truck Service",
+        "path": "/wheel-lift-tow-truck-service"
+      },
+      {
+        "name": "Winch Out",
+        "path": "/winch-out"
+      }
+    ]
+  },
+  "video": "https://www.youtube.com/embed/9-6cLeeZrRU",
+  "how_to": {
+    "title": "How to call the Towing?",
+    "description": "Your car could be out in the middle of nowhere or you may have run out of gas",
+    "steps": [
+      {
+        "step_num": "1",
+        "description": "Search for an experienced Los Angeles Towing company and call them or visit their websites."
+      },
+      {
+        "step_num": "2",
+        "description": " Give the Towing company with your address as well as other information about the vehicle, including indicators of malfunction."
+      },
+      {
+        "step_num": "3",
+        "description": "Provide photos of the vehicle you are using to provide them with an picture of the condition."
+      },
+      {
+        "step_num": "4",
+        "description": "Locate a secure area to sit and wait for experts in towing for their arrival."
+      },
+      {
+        "step_num": "5",
+        "description": "Get in touch with us by (213)-555-1111"
+      }
+    ]
+  },
+  "faqs": {
+    "title": "FAQs",
+    "options": [
+      {
+        "question": "What is the cost of Towing in Los Angeles?",
+        "answer": "It is difficult to come up with an established cost structure for Towing. A variety of factors, including the distance involved and the complexity of the scenario, could alter the cost. Therefore, you must talk to our experts for a better understanding."
+      },
+      {
+        "question": "What time do Towing companies shut down in Los Angeles?",
+        "answer": "Every Towing business in Los Angeles must be available 24/7 for its customers. This is crucial since anything could be out of order at any moment or even during the day."
+      },
+      {
+        "question": "What is the time to respond for Towing in Los Angeles?",
+        "answer": "The time to respond for Towing may vary depending on distance, conditions of the road in Los Angeles, and weather between the truck driver."
+      },
+      {
+        "question": "What rights do the Towing companies have?",
+        "answer": "As the Towing business can be the Towing company, they have the option of refusing provide if they cannot agree on the cost of the service"
+      },
+      {
+        "question": "How do Towing companies locate you in Los Angeles?",
+        "answer": "Towing workers typically live locally, which is why when they contact them, they'll ask for your address in Los Angeles. Today, customers prefer to send live locations for ease of access."
+      },
+      {
+        "question": "Where can I find a Towing that will serve in Los Angeles?",
+        "answer": "Just search for Towing companies located in Los Angeles in Google and choose a Towing company that can provide Towing for Los Angeles."
+      }
+    ]
+  },
+  "blogs": {
+    "title": "Our Blogs",
+    "blog_list": [
+      {
+        "title": "What To Do If I Have a Flat Tire and No Spare",
+        "description": "If you have a flat tire and no spare, there are a few steps you can take: Pull off the road:",
+        "image": "https://static.wixstatic.com/media/599cfc36e9e64341811ef890e64f1c32.jpg/v1/fill/w_220,h_123,fp_0.50_0.50,q_90,enc_auto/599cfc36e9e64341811ef890e64f1c32.jpg",
+        "created_at": "2022-11-29T21:55:20.000000Z",
+        "href": "what-to-do-if-i-have-a-flat-tire-and-no-spare"
+      },
+      {
+        "title": "The Best Ways to Locate Your Towed Vehicle in Los Angeles",
+        "description": "So, why would your vehicle get towed? The most common reasons are parking on private property without permission from the owner or parking on public property longer than allowed. If you have violated one of these rules, the property owner or city can tow your vehicle without letting you know about it first. ",
+        "image": "https://static.wixstatic.com/media/9266751e63594142828e29eb53a32e2f.jpg/v1/fill/w_319,h_240,fp_0.50_0.50,q_90,enc_auto/9266751e63594142828e29eb53a32e2f.jpg",
+        "created_at": "2022-11-29T21:55:20.000000Z",
+        "href": "the-best-ways-to-locate-your-towed-vehicle-in-los-angeles"
+      },
+      {
+        "title": "What To Do When Your Car Is Stuck in The Mud",
+        "description": "It is not fun when your car gets stuck in the mud. You may try to keep your foot on the gas pedal while hoping your car will push itself off this slippery surface. But, unfortunately, it is not always this easy to get your car out of the mud. It requires a combination of strategy and creativity",
+        "image": "https://static.wixstatic.com/media/11062b_9fab7d350ac343238c8d155b9d687d5c~mv2_d_6000_4000_s_4_2.jpg/v1/fill/w_319,h_240,fp_0.50_0.50,q_90,enc_auto/11062b_9fab7d350ac343238c8d155b9d687d5c~mv2_d_6000_4000_s_4_2.jpg",
+        "created_at": "2022-11-29T21:55:20.000000Z",
+        "href": "what-to-do-when-your-car-is-stuck-in-the-mud"
+      },
+      {
+        "title": "What happens if you don't pay towing fees?",
+        "description": "The towing company or the official police garage will hold your vehicle until you pay the towing fees. If you are unable to pay the fees, you have the right to retrieve all the personal property from the car. These could be personal items you left in the vehicle, such as your keys, wallet, sunglasses, documents, etc. The towing company does not have the right to hold these items",
+        "image": "https://static.wixstatic.com/media/11062b_53645fed96054b2fbcfe96a19631b071~mv2.jpg/v1/fill/w_319,h_240,fp_0.50_0.50,q_90,enc_auto/11062b_53645fed96054b2fbcfe96a19631b071~mv2.jpg",
+        "created_at": "2022-11-29T21:55:20.000000Z",
+        "href": "what-happens-if-you-don't-pay-towing-fees?"
+      }
+    ]
+  },
+  "contact": {
+    "address": "5482 WILSHIRE BLVD,Los Angeles",
+    "hours": "Open 24 Hours"
+  }
+}

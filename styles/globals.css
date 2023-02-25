@@ -1,16 +1,125 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply text-4xl my-3 font-bold;
+  }
+  h2 {
+    @apply text-3xl my-3 font-bold;
+  }
+  h3 {
+    @apply text-2xl my-3 font-bold;
+  }
+  h4 {
+    @apply text-xl my-3 font-bold;
+  }
+  h5 {
+    @apply text-lg my-3 font-bold;
+  }
+  h6 {
+    @apply text-lg my-3 font-bold;
+  }
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.navDropdown{
+  display: none;
+}
+.navDropdownButton:hover > .navDropdown{
+  display: flex;
+}
+.hide {
+  display: none;
+}
+    
+.myDIV:hover + .hide {
+  display: block;
+  color: red;
+}
+/* body{
+  background-color: #fcfcfc;
+} */
+.servicesDropdown{
+  display: none;
+}
+.servicesButton:hover > .servicesDropdown{
+  display: grid;
 }
 
-* {
-  box-sizing: border-box;
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+@layer components {
+
+  /* Buttons */
+  .btnPrimary {
+    @apply bg-primary rounded-lg font-medium py-3 text-center px-6 transition-all text-white
+  }
+  .btnPrimarySmall {
+    @apply bg-primary rounded-md font-medium py-2 text-center px-4 transition-all text-white
+  }
+  .btnPrimary:hover{
+    @apply opacity-90
+  }
+  .btnPrimary:hover {
+    @apply opacity-90
+  }
+  .btnPrimary:disabled {
+    @apply opacity-70 cursor-not-allowed
+  }
+  .serviceButton:hover {
+    @apply bg-white shadow-lg border-white
+  }
+  .socialLink{
+    @apply bg-primary mr-2 transition-all cursor-pointer rounded-full p-3 flex items-center justify-center
+  }
+  .socialLink:hover{
+    @apply scale-105 opacity-90
+  }
+  .searchOption{
+    @apply rounded-md cursor-pointer bg-white/80 transition-all border-white/40 border py-2 px-4 text-xs lg:text-sm
+  }
+  .searchOption:hover{
+    @apply shadow
+  }
+  .serviceButton {
+    @apply rounded-lg text-center capitalize text-sm border-gray-200 border-2 p-3 px-6 transition-all
+  }
+
+  /* container */
+  .container{
+    @apply flex flex-col items-center justify-center w-10/12 lg:w-9/12 bg-cover bg-center
+  }
+
+
+  /* Search Bar */
+  .elementHeading{
+    @apply  text-2xl lg:text-4xl font-bold capitalize
+  }
+  .elementHeading2{
+    @apply  text-lg lg:text-xl font-bold capitalize
+  }
+
+
+  /* Navbar */
+  .navLink{
+    @apply w-full px-3 py-6 text-4xl border-b border-primary
+  }
+
+  /* Inputs */
+  .loginFormField{
+    @apply px-5 py-3 shadow rounded-md w-full
+  }
+}
+
+@media screen and (min-width:768px) {
+  .bannerBg{
+    background-image: none !important;
+  }
 }
