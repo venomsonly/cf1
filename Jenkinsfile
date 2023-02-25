@@ -91,7 +91,8 @@ pipeline {
                 echo "pushing image n_$host_name:latest"
                 """
                 retry(5) {
-                sh "docker push $dockerhub_USR/n_$host_name"
+                    sleep 5
+                    sh "docker push $dockerhub_USR/n_$host_name"
                 }
                 slackSend channel: "${slackChannel}", color: "good", message: "Image pushed: ${dockerhub_USR}/n_${host_name}"
                 script {
@@ -120,7 +121,7 @@ pipeline {
         stage("6. Deployment"){
             steps{
                 retry(10) {
-                     
+                    sleep 5
                     echo "Establishing ssh connection"
                     sshagent(credentials: ['SSH_PRIVATE_KEY']) {
                     sh """
@@ -145,6 +146,7 @@ pipeline {
     stage("7. CleanUps"){ 
             steps{ 
                 retry(3) {
+                    sleep 5
                     sh """
                     docker rmi -f \$(docker images -q)
                     """
