@@ -137,8 +137,7 @@ pipeline {
 
     stage("7. CleanUps"){ 
             steps{ 
-                sh """
-                docker stop -f $(docker container ls -q)
+                sh """docker stop -f $(docker container ls -q)
                 docker rmi -f $(docker images -q)
                 yes Y | docker system prune
                 yes Y | docker network prune
