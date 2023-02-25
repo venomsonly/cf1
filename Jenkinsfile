@@ -87,7 +87,9 @@ pipeline {
                 sh """
                 echo "pushing image n_$host_name:latest"
                 """
+                retry(3) {
                 sh "docker push $dockerhub_USR/n_$host_name"
+                }
                 slackSend channel: "${slackChannel}", color: "good", message: "Image pushed: ${dockerhub_USR}/n_${host_name}"
                 script {
                     slackMsg="Stage 4 passed"
@@ -114,19 +116,21 @@ pipeline {
         }
         stage("6. Deployment"){
             steps{
-
-                echo "Establishing ssh connection"
-                sshagent(credentials: ['SSH_PRIVATE_KEY']) {
-                sh """
-                    [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
-                    ssh-keyscan "$SERVERIP" >> ~/.ssh/known_hosts
-                    
-                    ssh $SSH_USER@$SERVERIP "ls -la /home/jenkins_home/"
-                    scp ./nstack.yml $SSH_USER@$SERVERIP:/home/jenkins_home/n_${host_name}.yml
-                    ssh $SSH_USER@$SERVERIP "docker stack rm n_${host_name}"
-                    ssh $SSH_USER@$SERVERIP "docker stack deploy -c /home/jenkins_home/n_${host_name}.yml n_${host_name}"
-                    ssh $SSH_USER@$SERVERIP "cat /home/jenkins_home/n_${host_name}.yml"
-                """
+                retry(10) {
+                     
+                    echo "Establishing ssh connection"
+                    sshagent(credentials: ['SSH_PRIVATE_KEY']) {
+                    sh """
+                        [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
+                        ssh-keyscan "$SERVERIP" >> ~/.ssh/known_hosts
+                        
+                        ssh $SSH_USER@$SERVERIP "ls -la /home/jenkins_home/"
+                        scp ./nstack.yml $SSH_USER@$SERVERIP:/home/jenkins_home/n_${host_name}.yml
+                        ssh $SSH_USER@$SERVERIP "docker stack rm n_${host_name}"
+                        ssh $SSH_USER@$SERVERIP "docker stack deploy -c /home/jenkins_home/n_${host_name}.yml n_${host_name}"
+                        ssh $SSH_USER@$SERVERIP "cat /home/jenkins_home/n_${host_name}.yml"
+                    """
+                    }
                 }
                 script {
                     slackColor="good"
