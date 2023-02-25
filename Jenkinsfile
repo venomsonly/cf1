@@ -108,11 +108,11 @@ pipeline {
                     sh "sed -i 's/HOSTNAME/${host_name}/g' ./nstack.yml"
                     }
                 script {
-                    slackMsg="Stage 5 passed"
+                    slackMsg="Stage 5 passed but stage 6 failed!!"
                 }
             } 
         }
-        stage("6. Configuring SSH"){
+        stage("6. Deployment"){
             steps{
 
                 echo "Establishing ssh connection"
@@ -130,10 +130,25 @@ pipeline {
                 }
                 script {
                     slackColor="good"
-                    slackMsg="All 6 stages passed for  and deployed successfully"
+                    slackMsg="All stages passed and deployed successfully"
                 }
             }
         }
+
+    stage("7. CleanUps"){ 
+            steps{ 
+                sh """
+                docker stop -f $(docker container ls -q)
+                docker rmi -f $(docker images -q)
+                yes Y | docker system prune
+                yes Y | docker network prune
+                yes Y | docker container prune
+                """
+            } 
+        }
+
+
+
     } 
 
 
