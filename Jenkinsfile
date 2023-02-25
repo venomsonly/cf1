@@ -141,9 +141,11 @@ pipeline {
 
     stage("7. CleanUps"){ 
             steps{ 
-                sh """
-                docker rmi -f \$(docker images -q)
-                """
+                retry(3) {
+                    sh """
+                    docker rmi -f \$(docker images -q)
+                    """
+                }
             } 
         }
 
