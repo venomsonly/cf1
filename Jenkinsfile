@@ -3,6 +3,9 @@ def node_port=""
 def params=[:]
 def SSH_USER="root"
 def SERVERIP=""
+def slackMsg="failed!!"
+def slackChannel="#amt-cicd"
+
 pipeline { 
     agent any 
 
@@ -13,7 +16,10 @@ pipeline {
     stages{ 
         stage("1. Clean, install node packages and build the code"){ 
             steps{
-                
+                script {
+                    slackMsg="Failed at stage 1"
+                    slackColor="warning"
+                }                
                 sh """
                 echo "cleaning previous builds."
                 rm -rf .DS_Store .git node_modules .next build
@@ -22,10 +28,17 @@ pipeline {
                 yarn build
                 echo "next project build done."
                 """ 
+                script {
+                    slackMsg="Stage 1 passed"
+                }
             } 
         } 
         stage("2. Read .env file"){ 
             steps{ 
+                script {
+                    slackMsg="Failed at stage 2"
+                    slackColor="warning"
+                }
                 echo 'Reading .env file' 
                 script {
                     final String content = readFile(file: ".env")
@@ -45,27 +58,46 @@ pipeline {
                 sh """
                 echo "the host name is $host_name"
                 """
-
+                script {
+                    slackMsg="Stage 2 passed"
+                }
             } 
         } 
         stage("3. Build docker image from Dockerfile and tag with hostname"){ 
             steps{ 
-
+                script {
+                    slackMsg="Failed at stage 3"
+                    slackColor="warning"
+                }
                 sh "docker build -t $dockerhub_USR/n_$host_name:latest ."
                 sh "docker images"
+                script {
+                    slackMsg="Stage 3 passed"
+                }
             } 
         } 
     
-    stage("4. Push docker to dockerhub with tag hostname:latest"){ 
+    stage("4. Push docker to dockerhub"){ 
             steps{ 
+                script {
+                    slackMsg="Failed at stage 4"
+                    slackColor="warning"
+                }
                 sh """
                 echo "pushing image n_$host_name:latest"
                 """
                 sh "docker push $dockerhub_USR/n_$host_name"
+                script {
+                    slackMsg="Stage 4 passed"
+                }
             } 
         }
-    stage("5. Make changes to nstack.yml file"){ 
+    stage("5. Make changes to manifest file"){ 
             steps{ 
+                script {
+                    slackMsg="Failed at stage 5"
+                    slackColor="warning"
+                }
                 sh """
                 echo "Step 3 of main"
                 echo docker login and image building
@@ -74,11 +106,17 @@ pipeline {
                     sh "sed -i 's/PORT/${node_port}/g' ./nstack.yml"
                     sh "sed -i 's/HOSTNAME/${host_name}/g' ./nstack.yml"
                     }
-
+                script {
+                    slackMsg="Stage 5 passed"
+                }
             } 
         }
-        stage("6. Configuring SSH and running command"){
+        stage("6. Configuring SSH"){
             steps{
+                script {
+                    slackMsg="Failed at stage 6"
+                    slackColor="warning"
+                }
                 echo "Establishing ssh connection"
                 sshagent(credentials: ['SSH_PRIVATE_KEY']) {
                 sh """
@@ -88,9 +126,13 @@ pipeline {
                     ssh $SSH_USER@$SERVERIP "ls -la /home/jenkins_home/"
                     scp ./nstack.yml $SSH_USER@$SERVERIP:/home/jenkins_home/
                     ssh $SSH_USER@$SERVERIP "docker stack rm n_$host_name"
-                    ssh $SSH_USER@$SERVERIP "docker stack deploy -c /home/jenkins_home/nstack.yml n_$host_name"
-                    ssh $SSH_USER@$SERVERIP "cat /home/jenkins_home/nstack.yml"
+                    ssh $SSH_USER@$SERVERIP "docker stack deploy -c /home/jenkins_home/n_$host_name.yml n_$host_name"
+                    ssh $SSH_USER@$SERVERIP "cat /home/jenkins_home/n_$host_name.yml"
                 """
+                }
+                script {
+                    slackColor="good"
+                    slackMsg="All 6 stages passed ${env.JOB_NAME}:${env.BUILD_NUMBER} ${env.BUILD_URL} and deployed successfully"
                 }
             }
         }
@@ -100,10 +142,12 @@ pipeline {
     post{         
 
         always{      
+            slackSend channel: "${slackChannel}", color: "${slackColor}", message: "${slackMsg}"
             sh """
             echo 'This pipeline is completed. Sending slack msg now!'
             """
             sh 'docker rmi -f $(docker images -q)'
+
         } 
     } 
 }
