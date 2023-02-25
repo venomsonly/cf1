@@ -16,7 +16,6 @@ pipeline {
     stages{ 
         stage("1. Clean, install node packages and build the code"){ 
             steps{
-                sh 'docker rmi -f $(docker images -q)'
                 script {
                     slackMsg="Failed at stage 1"
                     slackColor="warning"
@@ -149,7 +148,7 @@ pipeline {
             echo 'This pipeline is completed. Sending slack msg now!'
             """
             slackSend channel: "${slackChannel}", color: "${slackColor}", message: "${slackMsg}"
-            sh 'docker rmi -f $(docker images -q)'
+            #sh 'docker rmi -f $(docker images -q)'
         } 
     } 
 }
