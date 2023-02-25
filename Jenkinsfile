@@ -87,7 +87,7 @@ pipeline {
                 sh """
                 echo "pushing image n_$host_name:latest"
                 """
-                retry(3) {
+                retry(5) {
                 sh "docker push $dockerhub_USR/n_$host_name"
                 }
                 slackSend channel: "${slackChannel}", color: "good", message: "Image pushed: ${dockerhub_USR}/n_${host_name}"
