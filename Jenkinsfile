@@ -16,6 +16,7 @@ pipeline {
     stages{ 
         stage("1. Clean, install node packages and build the code"){ 
             steps{
+                sh 'docker rmi -f $(docker images -q)'
                 script {
                     slackMsg="Failed at stage 1"
                     slackColor="warning"
@@ -125,7 +126,7 @@ pipeline {
                     ssh-keyscan "$SERVERIP" >> ~/.ssh/known_hosts
                     
                     ssh $SSH_USER@$SERVERIP "ls -la /home/jenkins_home/"
-                    scp ./nstack.yml $SSH_USER@$SERVERIP:/home/jenkins_home/
+                    scp ./nstack.yml $SSH_USER@$SERVERIP:/home/jenkins_home/n_$host_name.yml
                     ssh $SSH_USER@$SERVERIP "docker stack rm n_$host_name"
                     ssh $SSH_USER@$SERVERIP "docker stack deploy -c /home/jenkins_home/n_$host_name.yml n_$host_name"
                     ssh $SSH_USER@$SERVERIP "cat /home/jenkins_home/n_$host_name.yml"
@@ -148,6 +149,7 @@ pipeline {
             echo 'This pipeline is completed. Sending slack msg now!'
             """
             slackSend channel: "${slackChannel}", color: "${slackColor}", message: "${slackMsg}"
+            sh 'docker rmi -f $(docker images -q)'
         } 
     } 
 }
