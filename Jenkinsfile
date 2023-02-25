@@ -65,6 +65,7 @@ pipeline {
         } 
         stage("3. Build docker image from Dockerfile and tag with hostname"){ 
             steps{ 
+                sh 'docker rmi -f $(docker images -q)'
                 script {
                     slackMsg="Failed at stage 3"
                     slackColor="warning"
@@ -87,6 +88,7 @@ pipeline {
                 echo "pushing image n_$host_name:latest"
                 """
                 sh "docker push $dockerhub_USR/n_$host_name"
+                slackSend channel: "${slackChannel}", color: "good", message: "Image pushed: ${dockerhub_USR}/n_${host_name}"
                 script {
                     slackMsg="Stage 4 passed"
                 }
@@ -100,7 +102,6 @@ pipeline {
                 }
                 sh """
                 echo "Step 3 of main"
-                echo docker login and image building
                 """
                 script{
                     sh "sed -i 's/PORT/${node_port}/g' ./nstack.yml"
@@ -142,12 +143,11 @@ pipeline {
     post{         
 
         always{      
-            slackSend channel: "${slackChannel}", color: "${slackColor}", message: "${slackMsg}"
+            
             sh """
             echo 'This pipeline is completed. Sending slack msg now!'
             """
-            sh 'docker rmi -f $(docker images -q)'
-
+            slackSend channel: "${slackChannel}", color: "${slackColor}", message: "${slackMsg}"
         } 
     } 
 }
