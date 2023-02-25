@@ -138,7 +138,6 @@ pipeline {
     stage("7. CleanUps"){ 
             steps{ 
                 sh """
-                docker stop -f \$(docker container ls -q)
                 docker rmi -f \$(docker images -q)
                 """
             } 
