@@ -65,7 +65,7 @@ pipeline {
         } 
         stage("3. Build docker image from Dockerfile and tag with hostname"){ 
             steps{ 
-                sh 'docker rmi -f $(docker images -q)'
+                
                 script {
                     slackMsg="Failed at stage 3"
                     slackColor="warning"
