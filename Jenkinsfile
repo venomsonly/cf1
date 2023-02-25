@@ -9,7 +9,7 @@ def domain_name=""
 
 pipeline { 
     agent any 
-
+    tools {nodejs "node"}
     environment{
         dockerhub=credentials('dockerhub_cred_1')
     }         
@@ -17,6 +17,7 @@ pipeline {
     stages{ 
         stage("1. Clean, install node packages and build the code"){ 
             steps{
+                sh 'npm config ls'
                 script {
                     slackMsg="Failed at stage 1"
                     slackColor="warning"
@@ -25,8 +26,9 @@ pipeline {
                 echo "cleaning previous builds."
                 rm -rf .DS_Store .git node_modules .next build
                 echo "cleaned."
-                npm install
-                npm run build
+                npm install --global yarn
+                yarn install
+                yarn build
                 echo "next project build done."
                 """ 
                 script {
